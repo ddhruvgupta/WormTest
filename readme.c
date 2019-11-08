@@ -3,61 +3,66 @@
 #include <stdlib.h>
 
 int main(){
-	static char a[10000] = "hello";
+
+	const int static_var_size = 10000;
+	const int code_buffer_size = 10000;
+	const int exe_buffer_size = 100000; //exe buffer size needs to be >  static_var_size
+
+
+
+	static char a[static_var_size] = "hello";
 	printf("%s\n", a);
 
-	
-	
+
+
 // Check if run 1 or run 2
 	int flag;
 	if(a[0] == 'h') flag=0; else flag=1;
 
-
-/// Print contents of .c file
-	/*
-	for(int j = 0; j< total ; j++)
-	{	
-		printf("%c", cbuffer[j]);
-	} */
+	printf("FLAG ==== > %d\n", flag); //user verification of 1st / 2nd run
 
 if(flag == 0){
 	FILE *fp = fopen("readme.c", "r");
 	FILE *fp2 = fopen("readme", "r");
- 
-	char cbuffer [100000];
-	char cbuffer_copy [100000];
-	char bbuffer [20000];
-	int total = fread(cbuffer, 1, sizeof(cbuffer), fp);
-	int total2 = fread(bbuffer, 1, sizeof(bbuffer), fp2);
 
-	//search for string in bbuffer
-	int i, j = 0;
-		for(i = 0; i < total; i++ )
-		{
-			cbuffer_copy[i] = cbuffer[i];
+	unsigned char cbuffer [code_buffer_size];
+	unsigned char ebuffer [exe_buffer_size];
 
-			if(cbuffer[i] == 'h' && cbuffer[i+1] == 'e'	&& cbuffer[i+2] == 'l'&& cbuffer[i+3] == 'l' && cbuffer[i+4] == 'o')
-			{
-				printf("Adding \n " );
-				for( j=0; j<total2; j++)
-					cbuffer_copy[i+j] = cbuffer[j];
-				break;
-			}
-		}
 
-		for(i = i+5; i < total; i++)
-		{
-			cbuffer_copy[i+j] = cbuffer[i];
-		}
-	
-	
+	int code_len = fread(cbuffer, 1, sizeof(cbuffer), fp);
+	int exe_len = fread(ebuffer, 1, sizeof(ebuffer), fp2);
+
 	fclose(fp);
 	fclose(fp2);
+	//search for string in ebuffer
 
-	FILE *fp_readme2 = fopen("readme2.c", "w");
-	fwrite (cbuffer_copy , sizeof(char), sizeof(cbuffer_copy), fp_readme2);
-	fclose(fp_readme2);
-	}
+
+	int i, j = 0;
+		for(i = 0; i < exe_len; i++ )
+		{
+			// serach for the static variable memory location using its contents as a guide and replace with .c code
+			if(ebuffer[i] == 'h' && ebuffer[i+1] == 'e'	&& ebuffer[i+2] == 'l'&& ebuffer[i+3] == 'l' && ebuffer[i+4] == 'o')
+				{
+					// ebuffer[i] = 'm';
+					for( j=0; j<code_len; j++)
+						ebuffer[i++] = cbuffer[j];
+
+				}
+		}
+
+
+
+		FILE *fp3 = fopen("x.x","w+");
+		fwrite (ebuffer , sizeof(char), sizeof(ebuffer), fp3);
+		fclose(fp3);
+		system("mv x.x readme; chmod +x readme");
+
+}else{
+
+	// for(int j = 0; j <  ; j++)
+			printf("%c", a[0]);
+
+}
 
 	return 0;
 }
