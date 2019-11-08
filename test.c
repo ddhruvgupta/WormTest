@@ -42,17 +42,18 @@ int myreadfile(void)
 {
     FILE *fp;
     int i, n;
-    unsigned char a[50];
+    unsigned char a[100];
     if (!(fp=fopen("a","rb"))) return(0);
-    while(fread(a,1,sizeof(a)*5, fp) > 5)
+    while(n = fread(a,1,5, fp))
     {
+      // printf("%s\n", "running");
         if(strcmp(a,"hello") == 0){
           printf("%s\n", a);
         }
-        // for (i=0; i<n; i++){
-        //   // printf("%02x ",a[i]);
-        //   printf("%c",a[i]);
-        // }
+        for (i=0; i<n; i++){
+          // printf("%02x ",a[i]);
+          printf("%c",a[i]);
+        }
 
         printf("\n");
     }
