@@ -1,16 +1,23 @@
+/**
+@Author Dhruv Gupta
+
+This file is a simple worm that will save the code in memory on the first run and
+print the source to command line on the second run. 
+**/
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 
 int main(){
 
-	const int static_var_size = 10000;
+	//final int static_var_size = 10000;
 	const int code_buffer_size = 10000;
 	const int exe_buffer_size = 100000; //exe buffer size needs to be >  static_var_size
 
 
 
-	static char a[static_var_size] = "hello";
+	static char a[10000] = "hello";
 	printf("%s\n", a);
 
 
@@ -23,6 +30,11 @@ int main(){
 
 if(flag == 0){
 	FILE *fp = fopen("readme.c", "r");
+	if(!fp){
+		printf("Cannot Find .c File ... exiting \n");
+		exit(0);
+	}
+
 	FILE *fp2 = fopen("readme", "r");
 
 	unsigned char cbuffer [code_buffer_size];
@@ -59,8 +71,8 @@ if(flag == 0){
 
 }else{
 
-	// for(int j = 0; j <  ; j++)
-			printf("%c", a[0]);
+	// for(int j = 0; j < sizeof(a)/sizeof(a[0]) ; j++)
+	// 		printf("%c", a[j]);
 
 }
 
