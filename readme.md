@@ -33,6 +33,7 @@ Prints the code and creates a new .c file
 
 root\@dhruv-MS-7B79:\~/Documents/GSU/DataSec/test\# ./readme
 
+```
 /\*\*
 
 \@Author Dhruv Gupta
@@ -151,6 +152,8 @@ return 0;
 }
 
 FLAG ==== \> 1
+
+```
 
 -   Final results readme.c file is back
 
