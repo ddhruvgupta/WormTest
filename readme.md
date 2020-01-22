@@ -9,7 +9,7 @@ readme.c is a worm.
 4. When the malicious program runs, it will execute the real program but will also execute malicious code
 
 
-Start with readme.c file in a directory.
+## Start with readme.c file in a directory.
 
 Compile the file with gcc:
 
