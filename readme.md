@@ -1,7 +1,12 @@
+# Creating a non weaponzied worm
+### This is a study of how worms are built and how they work. 
+
 readme.c is a worm. 
 
 1. checks if an infected rc4 file exists. 
-2. if infection hasn't spread and the file exists, the worm will make a copy of the file in a temp directory   
+2. if infection hasn't spread and the file exists, the worm will make a copy of the file in a temp directory
+3. Re compile itself with the name of the same program
+4. When the malicious program runs, it will execute the real program but will also execute malicious code
 
 
 Start with readme.c file in a directory.
